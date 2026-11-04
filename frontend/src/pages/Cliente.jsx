@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { PRODUTOS, formatarPreco } from "../produtos";
+import { Link, useNavigate } from "react-router-dom";
+import { formatarPreco } from "../produtos";
 
 export default function Cliente() {
   const [produtos, setProdutos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Backend retorna os produtos cadastrados no banco H2.
     fetch("http://localhost:8080/api/produtos").then(r => r.json()).then(setProdutos);
-    setProdutos(PRODUTOS);
   }, []);
 
   return (
     <div className="container">
-      <h2>Produtos</h2>
-      <p className="sub">Escolha um produto para ver os detalhes.</p>
+      <div className="titulo-produtos">
+        <div>
+          <h2>Produtos</h2>
+          <p className="sub">Escolha um produto para ver os detalhes.</p>
+        </div>
+        <button className="sair" type="button" onClick={() => navigate("/")}>← Sair</button>
+      </div>
 
       <div className="grid">
         {produtos.map((p) => (

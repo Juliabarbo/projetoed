@@ -9,8 +9,10 @@ export default function Produto() {
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null);
   const [relacionados, setRelacionados] = useState([]);
+  const [mensagemCompra, setMensagemCompra] = useState("");
 
   useEffect(() => {
+    // Busca o produto, relacionados e registra o acesso na pilha do histórico.
     fetch(`${API}/produtos/${id}`).then(r => r.ok ? r.json() : null).then(setProduto);
     fetch(`${API}/produtos/${id}/relacionados`).then(r => r.json()).then(setRelacionados);
     fetch(`${API}/historico/${id}`, { method: "POST" });              // pilha: push
@@ -18,12 +20,13 @@ export default function Produto() {
 
   const voltar = async () => {
     const { anterior } = await fetch(`${API}/historico/voltar`, { method: "POST" }).then(r => r.json());
-    navigate(anterior ? `/produto/${anterior.id}` : "/");              // pilha: pop
+    navigate(anterior ? `/produto/${anterior.id}` : "/cliente");      // pilha: pop
   };
 
   const comprar = async () => {
-    const { posicao } = await fetch(`${API}/pedidos/${id}`, { method: "POST" }).then(r => r.json());
-    alert(`Pedido adicionado! Posição na fila: ${posicao}`);           // fila: enqueue
+    // Adiciona o produto à fila de pedidos e mostra a confirmação na tela.
+    await fetch(`${API}/pedidos/${id}`, { method: "POST" });
+    setMensagemCompra("Compra feita com sucesso");
   };
 
   if (!produto) return <div className="container"><p>Produto não encontrado.</p></div>;
@@ -37,7 +40,8 @@ export default function Produto() {
           <h1>{produto.nome}</h1>
           <p>{produto.descricao}</p>
           <div className="preco grande">{formatarPreco(produto.preco)}</div>
-          <button className="comprar" onClick={comprar}>Adicionar ao carrinho</button>
+          <button className="comprar" onClick={comprar}>Comprar</button>
+          {mensagemCompra && <p className="compra-sucesso">Compra feita com sucesso!</p>}
         </div>
       </div>
 
