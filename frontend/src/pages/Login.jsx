@@ -29,7 +29,7 @@ export default function Login() {
 
   return (
     <>
-      <header>Loja</header>
+      <header><h1>🏪 Loja</h1></header>
       <main>
         <form className="login-card card" onSubmit={entrar}>
           <h1>Faça o seu login</h1>

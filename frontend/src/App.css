@@ -1,6 +1,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
 body { background: #f4f4f6; color: #222; }
 header { background: #1e2a45; color: #fff; padding: 16px 24px; }
+header h1 { margin: 0; font-size: 16px; }
 .container { max-width: 1000px; margin: 32px auto; padding: 0 16px; }
 .sub { color: #666; margin: 8px 0 24px; }
 .preco { font-size: 20px; font-weight: bold; color: #1b8a3a; }

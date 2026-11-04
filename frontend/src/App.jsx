@@ -8,8 +8,8 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/cliente" element={<><header><strong>Minha Loja</strong></header><Cliente /></>} />
-        <Route path="/produto/:id" element={<><header><strong>Minha Loja</strong></header><Produto /></>} />
+        <Route path="/cliente" element={<><header><h1>🏪 Loja</h1></header><Cliente /></>} />
+        <Route path="/produto/:id" element={<><header><h1>🏪 Loja</h1></header><Produto /></>} />
       </Routes>
     </>
   );
